@@ -350,7 +350,7 @@
           },
           "targets": [
             {
-              "expr": "sum (container_memory_working_set_bytes{pod_name=~\"^$Pod$\"}) / sum (machine_memory_bytes{kubernetes_io_hostname=~\"^$Node$\"}) * 100",
+              "expr": "sum (kube_pod_container_resource_requests_memory_bytes{pod=~\"^$Pod$\"}) / sum (kube_node_status_capacity_memory_bytes{node=~\"^$Node$\"}) * 100",
               "interval": "10s",
               "intervalFactor": 1,
               "refId": "A",
@@ -431,7 +431,7 @@
           },
           "targets": [
             {
-              "expr": "sum (rate (container_cpu_usage_seconds_total{pod_name=~\"^$Pod$\"}[1m])) / sum (machine_cpu_cores{kubernetes_io_hostname=~\"^$Node$\"}) * 100",
+              "expr": "sum (rate (kube_pod_container_resource_requests_cpu_cores{pod=~\"^$Pod$\"}[1m])) / sum (kube_node_status_capacity_cpu_cores{node=~\"^$Node$\"}) * 100",
               "interval": "10s",
               "intervalFactor": 1,
               "refId": "A",
@@ -823,7 +823,7 @@
           },
           "targets": [
             {
-              "expr": "sum (container_memory_working_set_bytes{pod_name=~\"^$Pod$\"})",
+              "expr": "sum (kube_pod_container_resource_requests_memory_bytes{pod=~\"^$Pod$\"})",
               "interval": "10s",
               "intervalFactor": 1,
               "refId": "A",
@@ -1482,7 +1482,7 @@
         "multi": false,
         "name": "Pod",
         "options": [],
-        "query": "label_values(pod_name)",
+        "query": "label_values(kube_pod_info{pod=~\"$Pod.*$\"}, pod)",
         "refresh": 1,
         "type": "query"
       },
@@ -1508,7 +1508,7 @@
         "multi": false,
         "name": "phase",
         "options": [],
-        "query": "label_values(kube_pod_status_phase{pod=~\"$Pod.*$\"}, phase)",
+        "query": "label_values(kube_pod_status_phase{pod=~\"$Pod.*$\",phase=~\"Running\"}, phase)",
         "refresh": 1,
         "type": "query"
       },
@@ -1531,7 +1531,7 @@
   },
   "refresh": "10s",
   "schemaVersion": 12,
-  "version": 6,
+  "version": 5,
   "links": [],
   "gnetId": 315
 }

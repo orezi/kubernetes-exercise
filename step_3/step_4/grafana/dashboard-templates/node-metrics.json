@@ -117,7 +117,7 @@
           },
           "targets": [
             {
-              "expr": "sum(kube_node_status_allocateable_pods{node=~\"$Node.*$\"})",
+              "expr": "sum(kube_node_status_allocatable_pods{node=~\"$Node.*$\"})",
               "intervalFactor": 2,
               "refId": "A",
               "step": 40
@@ -208,7 +208,7 @@
           },
           "targets": [
             {
-              "expr": "kube_node_status_ready{node=~\"$Node.*$\", condition=\"true\"}",
+              "expr": "kube_node_status_condition{node=~\"$Node.*$\", condition=~\"Ready\", status=~\"true\"}",
               "intervalFactor": 2,
               "refId": "A",
               "step": 40
@@ -502,7 +502,7 @@
           },
           "targets": [
             {
-              "expr": "sum (container_memory_working_set_bytes{id=\"/\",kubernetes_io_hostname=~\"^$Node$\"}) / sum (machine_memory_bytes{kubernetes_io_hostname=~\"^$Node$\"}) * 100",
+              "expr": "sum(kube_node_status_allocatable_memory_bytes{node=~\"^$Node$\"})/ sum (kube_node_status_capacity_memory_bytes{node=~\"^$Node$\"}) * 100",
               "interval": "10s",
               "intervalFactor": 1,
               "refId": "A",
@@ -2371,7 +2371,7 @@
   },
   "refresh": "10s",
   "schemaVersion": 12,
-  "version": 6,
+  "version": 5,
   "links": [],
   "gnetId": 315
 }
