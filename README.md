@@ -2,7 +2,7 @@
 
 Clone this repo:
 
-```https://github.com/orezi/backup_restore.git```
+```$ git clone https://github.com/orezi/kubernetes-exercise.git```
 
 #Step 1:
 
@@ -13,6 +13,7 @@ Sets up Mediawiki with mysql database running on one docker container.
 **Run:**
 
 ```$ docker build -t <image-name>:<tag> .```
+
 ```$ docker run -d -p 80:80 <image-name>:<tag>```
 
 - check ```http://localhost``` on the web browser to use mediawiki.
@@ -33,9 +34,13 @@ Sets up Mediawiki using docker-compose on two separate containers that are linke
 
 ```$ docker-compose up -d --build```
 
-```$ docker ps -a``` ### should show two containers running (mediawiki and mysql)
+- To show two containers running (mediawiki and mysql)
 
-```docker inspect mysql```  ### to show the ip of the mysql container (note down the IP)
+```$ docker ps -a```  
+
+- To show the ip of the mysql container (note down the IP)
+
+```docker inspect mysql```
 
 visit ```http://localhost``` 
 
@@ -68,25 +73,34 @@ Sets up prometheus and grafana for monitoring of the kubernetes cluster
 ```$ cd step_3/step_4```
 
 - To setup prometheus for monitoring of metrics:
+
 ```$ kubectl create -f prometheus```
 
 - To setup grafan for visualization of metrics:
+
 ``` $ kubectl create -f grafana```
 
 - To setup kube state metrics to expose metrics for prometheus to scrape:
+
 ``` $ kubectl create -f kube-state-metrics/kube-system```
 
 #Verify kubernetes setup:
 
 **Minikube setup**
 
-```$ minikube service mediawiki-svc --url``` ###visit the url in the output to see mediawiki site
+- Visit the url in the output to see mediawiki site
+
+```$ minikube service mediawiki-svc --url```
 
 **OR (kubenetes cluster setup)** 
 
-```$ kubectl describe service mediawiki-svc --url``` ###visit the url in the output to see mediawiki site
+- Visit the url in the output to see mediawiki site
 
-```$ kubectl describe service mysql-svc``` ###note the IP listed as endpoint
+```$ kubectl describe service mediawiki-svc --url```
+
+- Note the IP listed as endpoint
+
+```$ kubectl describe service mysql-svc``` 
 
 - Insert the IP noted in previous command as the **database host** during installation
 
@@ -94,16 +108,18 @@ Sets up prometheus and grafana for monitoring of the kubernetes cluster
 
 - Finish installation.
 
+
 **View Prometheus and Grafana dashboards
 
-To get the IP address of the two services:
+- To get the IP address of the two services:
 
 Prometheus:
 
-- ```minikube service prometheus-svc --url``` or ```kubectl describe service prometheus-svc```
+```minikube service prometheus-svc --url``` or ```kubectl describe service prometheus-svc```
 
 Grafana:
-- ```minikube service grafana-svc --url``` or ```kubectl describe service grafana-svc```
+
+```minikube service grafana-svc --url``` or ```kubectl describe service grafana-svc```
 
 **Import Grafana dashboards
 
