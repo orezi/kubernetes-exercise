@@ -1,0 +1,26 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: mediawiki
+  name: mediawiki
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: mediawiki
+    spec:
+      containers:
+        - name: mediawiki
+          image: orezi/mediawiki:1.0
+          ports:
+          - containerPort: 80
+          volumeMounts:
+          - name: mysql-persistent-storage
+            mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim

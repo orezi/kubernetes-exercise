@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mysql-mediawiki
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-mediawiki
+        tier: db
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          volumeMounts:
+          - name: mysql-persistent-storage
+            mountPath: /var/lib/mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-password
+                  key: password
+            - name: MYSQL_DATABASE
+              value: mediawiki
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 2500Mi
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim

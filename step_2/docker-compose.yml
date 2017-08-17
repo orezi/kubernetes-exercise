@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "pass"
+      MYSQL_DATABASE: "mediawiki"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    deploy:
+      restart_policy: 
+        condition: on-failure
+    networks:
+      - mediawiki_mysql_net
+
+  mediawiki:
+    build:
+      context: .
+    container_name: mediawiki
+    links:
+        - mysql:mysql
+    ports:
+      - 80:80
+    networks:
+      - mediawiki_mysql_net
+    depends_on:
+      - mysql
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+
+networks:
+  mediawiki_mysql_net:
+    driver: bridge
+
+volumes:
+  mysql_data:
