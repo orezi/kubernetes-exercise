@@ -96,9 +96,9 @@ Sets up prometheus and grafana for monitoring of the kubernetes cluster
 
 - Visit the url in the output to see mediawiki site
 
-```$ kubectl describe service mediawiki-svc --url```
+```$ kubectl describe service mediawiki-svc```
 
-- Note the IP listed as endpoint
+- To get the IP of mysql container (check for endpoint):
 
 ```$ kubectl describe service mysql-svc``` 
 
