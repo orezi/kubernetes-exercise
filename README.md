@@ -122,6 +122,25 @@ Sets up prometheus and grafana for monitoring of the kubernetes cluster
 
 ```minikube service grafana-svc --url``` or ```kubectl describe service grafana-svc```
 
+**Add Prometheus as Grafana dashboard**
+
+- Login to grafana with ```admin``` as username and password
+
+- Click on the grafana icon
+
+- Click on ```Data sources``` and then ```Add data source```
+
+- Choose a name for this datasource
+
+- Choose `Type` as `Prometheus`
+
+- Get and Insert the IP of the prometheus service by running ```minikube service prometheus-svc --url```
+
+- Choose ```direct``` as ```Access``` type
+
+- Click the Add button
+
+
 **Import Grafana dashboards**
 
 - Login to grafana with ```admin``` as username and password
