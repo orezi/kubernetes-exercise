@@ -4,7 +4,7 @@ Clone this repo:
 
 ```$ git clone https://github.com/orezi/kubernetes-exercise.git```
 
-#Step 1:
+**Step 1:**
 
 Sets up Mediawiki with mysql database running on one docker container.
 
@@ -24,7 +24,7 @@ Sets up Mediawiki with mysql database running on one docker container.
 
 - Finish Installation
 
-#Step 2.
+**Step 2:**
 
 Sets up Mediawiki using docker-compose on two separate containers that are linked.
 
@@ -53,7 +53,7 @@ example: 172.xx.x.x:3306
 - Finish installation
 
 
-#Step 3:
+**Step 3:**
 
 Sets up mediawiki and mysql using kubernetes.
 
@@ -67,32 +67,15 @@ Sets up mediawiki and mysql using kubernetes.
 
 ```$ kubectl create -f mediawiki```
 
-#Step 4:
+**Verify mediawiki setup:**
 
-Sets up prometheus and grafana for monitoring of the kubernetes cluster
-```$ cd step_3/step_4```
-
-- To setup prometheus for monitoring of metrics:
-
-```$ kubectl create -f prometheus```
-
-- To setup grafan for visualization of metrics:
-
-``` $ kubectl create -f grafana```
-
-- To setup kube state metrics to expose metrics for prometheus to scrape:
-
-``` $ kubectl create -f kube-state-metrics/kube-system```
-
-#Verify kubernetes setup:
-
-**Minikube setup**
+**Using Minikube:**
 
 - Visit the url in the output to see mediawiki site
 
 ```$ minikube service mediawiki-svc --url```
 
-**OR (kubenetes cluster setup)** 
+**OR (Using Kubenetes cluster):** 
 
 - Visit the url in the output to see mediawiki site
 
@@ -108,30 +91,39 @@ Sets up prometheus and grafana for monitoring of the kubernetes cluster
 
 - Finish installation.
 
+**Step 4:**
 
-**View Prometheus and Grafana dashboards
+Sets up prometheus and grafana for monitoring of the kubernetes cluster
+
+```$ cd step_3/step_4```
+
+- To setup prometheus for monitoring of metrics:
+
+```$ kubectl create -f prometheus```
+
+- To setup grafan for visualization of metrics:
+
+``` $ kubectl create -f grafana```
+
+- To setup kube state metrics to expose metrics for prometheus to scrape:
+
+``` $ kubectl create -f kube-state-metrics/kube-system```
+
+
+**View Prometheus and Grafana dashboards**
 
 - To get the IP address of the two services:
 
-Prometheus:
+**Prometheus:**
 
 ```minikube service prometheus-svc --url``` or ```kubectl describe service prometheus-svc```
 
-Grafana:
+**Grafana:**
 
 ```minikube service grafana-svc --url``` or ```kubectl describe service grafana-svc```
 
-**Import Grafana dashboards
+**Import Grafana dashboards**
 
 - Login to grafana with ```admin``` as username and password
 
 - You can add new dashboards by importing the JSON files located in step_3/step_4/grafana/dashboard-templates
-
-
-
-
-
-
-
-
-
